@@ -16,7 +16,7 @@ int server_handshake(int *to_client) {
 	
 	int fd = open("wkp", O_RDONLY);
 	printf("opened wkp\n");
-	
+ 	
 	char client[HANDSHAKE_BUFFER_SIZE];
 	read(fd,client,HANDSHAKE_BUFFER_SIZE);
 	printf("client says %s\n", client);
