@@ -6,6 +6,7 @@
 #include <sys/stat.h>
 #include <string.h>
 #include <errno.h>
+#include <signal.h>
 
 #ifndef NETWORKING_H
 #define NETWORKING_H
@@ -19,4 +20,5 @@ int server_handshake(int *to_client);
 int client_handshake(int *to_server);
 
 #endif
+
 
