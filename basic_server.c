@@ -30,11 +30,17 @@ int main() {
 
   char * input = calloc(BUFFER_SIZE,sizeof(char));
   char * output = calloc(BUFFER_SIZE,sizeof(char));
-
+  
   while(1){
+	
+        mkfifo("wkp",0666);
+        printf("made wkp");
+
 	from_client = server_handshake( &to_client ); //handshake each client
-	while (read(from_client,input,BUFFER_SIZE)){
-		printf("recieved: %s\n",input);
+
+	if (fork()){
+	  while (read(from_client,input,BUFFER_SIZE)){
+	  	printf("recieved: %s\n",input);
 		strcpy(output,reverse(input));
 		printf("sending: %s\n",output);
 		write(to_client,output,strlen(output));
@@ -42,6 +48,12 @@ int main() {
 		input = calloc(BUFFER_SIZE,sizeof(char));
 		free(output);
 		output = calloc(BUFFER_SIZE,sizeof(char));
+	  }     
+	}
+	else{
+
+		remove("wkp");
+		printf("wkp gone");
 	}
 	
   }
